@@ -70,7 +70,7 @@ namespace StarChart.Controllers
             existingObject.Name = celestialObject.Name;
             existingObject.OrbitalPeriod = celestialObject.OrbitalPeriod;
             existingObject.OrbitedObjectId = celestialObject.OrbitedObjectId;
-            _context.CelestialObjects.Update(celestialObject);
+            _context.CelestialObjects.Update(existingObject);
             _context.SaveChanges();
             return NoContent();
         }
@@ -91,7 +91,7 @@ namespace StarChart.Controllers
         public IActionResult Delete(int id)
         {
             var celestialObjects = _context.CelestialObjects.Where(e => e.Id == id).ToList();
-            if(celestialObjects == null)
+            if(!celestialObjects.Any())
             {
                 return NotFound();
             }
